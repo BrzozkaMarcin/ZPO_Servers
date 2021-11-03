@@ -1,0 +1,45 @@
+@startuml
+class Product {
+ + name: str
+ + price: float
+ + __init__(self, name: str, price: float)
+}
+
+
+abstract class Server {
+ + {static} n_max_returned_entries
+ + super().__init__(self)
+ + get_entries(self, n_letters: int)
+ + {abstract} get_all_products(self) = 0
+}
+
+
+class ListServer {
+ + super().__init__()
+ + products: List[Product]
+ + __init__(self, products: List[Product])
+ + get_all_products(self, products: List[Product]): List[Product]
+}
+
+
+class MapServer {
+ + super().__init__()
+ + __init__(self, products: Dict[Str: Product])
+ + get_all_products(self, products: Dict[Product]): List[Product]
+ + products: Dict[Product]
+}
+
+
+class Client{
+ + server: Server
+ + __init__(self, server: Server)
+ + get_total_price(self, n_letters: Optional[int])
+}
+
+
+Client o-- Server
+Server <|-- ListServer
+Server <|-- MapServer
+ListServer *-- Product
+MapServer *-- Product
+@enduml
