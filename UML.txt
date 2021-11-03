@@ -9,7 +9,7 @@ class Product {
 abstract class Server {
  + {static} n_max_returned_entries
  + super().__init__(self)
- + get_entries(self, n_letters: int)
+ + get_entries(self, n_letters: int = 1)
  + {abstract} get_all_products(self) = 0
 }
 
@@ -33,10 +33,17 @@ class MapServer {
 class Client{
  + server: Server
  + __init__(self, server: Server)
- + get_total_price(self, n_letters: Optional[int])
+ + get_total_price(self, n_letters: Optional[int]): float
 }
 
 
+hide empty members
+class TooManyProductsFoundError{
+}
+
+
+Server..> TooManyProductsFoundError : <<throws>>
+Product..> ValueError: <<throws>>
 Client o-- Server
 Server <|-- ListServer
 Server <|-- MapServer
