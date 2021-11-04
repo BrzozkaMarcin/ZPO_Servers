@@ -8,25 +8,22 @@ class Product {
 
 abstract class Server {
  + {static} n_max_returned_entries
- + super().__init__(self)
  + get_entries(self, n_letters: int = 1)
  + {abstract} get_all_products(self) = 0
 }
 
 
 class ListServer {
- + super().__init__()
  + products: List[Product]
  + __init__(self, products: List[Product])
- + get_all_products(self, products: List[Product]): List[Product]
+ + get_all_products(self): List[Product]
 }
 
 
 class MapServer {
- + super().__init__()
- + __init__(self, products: Dict[Str: Product])
- + get_all_products(self, products: Dict[Product]): List[Product]
- + products: Dict[Product]
+ + __init__(self, products: List[Product])
+ + get_all_products(self): List[Product]
+ + products: Dict[Str: Product]
 }
 
 
@@ -43,7 +40,6 @@ class TooManyProductsFoundError{
 
 
 Server..> TooManyProductsFoundError : <<throws>>
-Product..> ValueError: <<throws>>
 Client o-- Server
 Server <|-- ListServer
 Server <|-- MapServer
