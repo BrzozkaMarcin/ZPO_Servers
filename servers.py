@@ -36,7 +36,7 @@ class Server(ABC):
     n_max_returned_entries = 10
     products = None
     
-    def get_entries(self,n_letters:int = 1) -> List[Product]:
+    def get_entries(self, n_letters: int = 1) -> List[Product]:
         products = self.get_all_products(self.products)
         product_list = []
         ascii_letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -51,7 +51,7 @@ class Server(ABC):
             if len(product_list) > self.n_max_returned_entries:
                 print('too many entries')
                 return 0 
-            product_list = sorted(product_list,key = product.price)
+            product_list = sorted(product_list, key=product.price)
         return product_list
 
     @abstractmethod
@@ -59,7 +59,7 @@ class Server(ABC):
         pass
 
 class ListServer(Server):
-    def __init__(self,products) -> None:
+    def __init__(self, products) -> None:
         super().__init__()
 
         self.products = products
@@ -69,7 +69,7 @@ class ListServer(Server):
 
 class MapServer(Server):
 
-    def __init__(self,products) -> None:
+    def __init__(self, products) -> None:
         super().__init__()
         self.products = {}
         for product in products:
@@ -85,5 +85,17 @@ class MapServer(Server):
 class Client:
     # FIXME: klasa powinna posiadać metodę inicjalizacyjną przyjmującą obiekt reprezentujący serwer
 
+    def __init__(self, server_: Server) -> None:
+        self.server = server_
+
     def get_total_price(self, n_letters: Optional[int]) -> Optional[float]:
-        raise NotImplementedError()
+        try:
+            sum_price = 0
+            lst_product = server.get_entries(n_letters)
+
+            for i in range(len(lst_product)):
+                sum_price += lst_product[i].price
+
+        except TooManyProductsFoundError:
+            return None
+        return sum_price
