@@ -31,9 +31,10 @@ class TooManyProductsFoundError:
 
 class Server(ABC):
     def __init__(self) -> None:
-        self.products = 0
         super().__init__()
+
     n_max_returned_entries = 10
+    products = None
     
     def get_entries(self,n_letters:int = 1) -> List[Product]:
         products = self.get_all_products(self.products)
@@ -57,10 +58,9 @@ class Server(ABC):
     def get_all_products(self):
         pass
 
-
 class ListServer(Server):
     def __init__(self,products) -> None:
-        super().__init__(self)
+        super().__init__()
 
         self.products = products
 
@@ -70,7 +70,7 @@ class ListServer(Server):
 class MapServer(Server):
 
     def __init__(self,products) -> None:
-        super().__init__(self)
+        super().__init__()
         self.products = {}
         for product in products:
             self.products[product.name] = product
