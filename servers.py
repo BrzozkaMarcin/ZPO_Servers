@@ -18,10 +18,12 @@ class Product:
         return hash((self.name, self.price))
 
 
-class TooManyProductsFoundError:
+class TooManyProductsFoundError(Exception):
     # Reprezentuje wyjątek związany ze znalezieniem zbyt dużej liczby produktów.
-    pass
-
+    def __init__(self, lst_product, n_max_returned_entries):
+        Exception.__init__(self)
+        self.lst_product = lst_product
+        self.n_max_returned_entries = n_max_returned_entries
 
 # FIXME: Każada z poniższych klas serwerów powinna posiadać: (1) metodę inicjalizacyjną przyjmującą listę obiektów
 #  typu `Product` i ustawiającą atrybut `products` zgodnie z typem reprezentacji produktów na danym serwerze,
