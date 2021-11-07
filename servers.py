@@ -44,10 +44,11 @@ class Product:
 
 class TooManyProductsFoundError(Exception):
     # Reprezentuje wyjątek związany ze znalezieniem zbyt dużej liczby produktów.
-    def __init__(self, lst_product, n_max_returned_entries):
-        Exception.__init__(self)
-        self.lst_product = lst_product
+    def __init__(self, n_returned_entries, n_max_returned_entries):
+        super().__init__(self)
+        self.n_returned_entries = n_returned_entries
         self.n_max_returned_entries = n_max_returned_entries
+        print('number of entries exceeded by:',self.n_returned_entries - self.n_max_returned_entries)
 
 
 # FIXME: Każada z poniższych klas serwerów powinna posiadać: (1) metodę inicjalizacyjną przyjmującą listę obiektów
@@ -60,7 +61,7 @@ class Server(ABC):
     def __init__(self) -> None:
         super().__init__()
 
-    n_max_returned_entries = 10
+    n_max_returned_entries = 2
     products = None
 
     def get_entries(self, n_letters: int = 1) -> List[Product]:
@@ -68,16 +69,19 @@ class Server(ABC):
         product_list = []
         ascii_letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
         digits = '0123456789'
-        for product in products:
-            n_chars = product.name[0:n_letters]
-            nums2 = product.name[n_letters:n_letters + 2]
-            nums3 = product.name[n_letters:n_letters + 3]
-            if all(item in ascii_letters for item in n_chars):
-                if all(item in digits for item in nums2) or all(item in digits for item in nums3):
-                    product_list.append(product)
-            if len(product_list) > self.n_max_returned_entries:
-                print('too many entries')
-                return 0
+        try:
+            for product in products:
+                n_chars = product.name[0:n_letters]
+                nums2 = product.name[n_letters:n_letters + 2]
+                nums3 = product.name[n_letters:n_letters + 3]
+                if all(item in ascii_letters for item in n_chars):
+                    if all(item in digits for item in nums2) or all(item in digits for item in nums3):
+                        product_list.append(product)
+                if len(product_list) > self.n_max_returned_entries:
+                    raise TooManyProductsFoundError(len(product_list),self.n_max_returned_entries)
+        except TooManyProductsFoundError:
+            print('number of entries exceeded by:',len(product_list) - self.n_max_returned_entries)
+            return None
         product_list.sort(key = lambda x : x.price) 
         return product_list
 
