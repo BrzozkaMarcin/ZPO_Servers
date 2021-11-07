@@ -61,7 +61,7 @@ class Server(ABC):
     products = None
 
     def get_entries(self, n_letters: int = 1) -> List[Product]:
-        products = self.get_all_products(self.products)
+        products = self.get_all_products()
         product_list = []
         ascii_letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
         digits = '0123456789'
@@ -75,7 +75,7 @@ class Server(ABC):
             if len(product_list) > self.n_max_returned_entries:
                 print('too many entries')
                 return 0
-            product_list = sorted(product_list, key=product.price)
+        product_list.sort(key = lambda x : x.price) 
         return product_list
 
     @abstractmethod
@@ -103,8 +103,8 @@ class MapServer(Server):
 
     def get_all_products(self):
         product_list = []
-        for product in self.products:
-            product_list.append(product)
+        for key in self.products.keys():
+            product_list.append(self.products[key])
         return product_list
 
 
