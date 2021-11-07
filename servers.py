@@ -11,19 +11,41 @@ class Product:
     #  i jego cenę (typu float) -- w takiej kolejności -- i ustawiającą atrybuty `name` (typu str) oraz `price` (typu
     #  float)
 
+    def __init__(self, name: str, price: float):
+        self.name: str = name
+        self.price: float = price
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, new):
+        ind = 0
+        for x, y in enumerate(new):
+            try:
+                int(y)
+            except ValueError:
+                pass
+            else:
+                ind = x
+                break
+        if not (new[0:ind].isalpha() and new[ind:].isdigit()):
+            raise ValueError
+        else:
+            self._name = new
+
     def __eq__(self, other):
-        return None  # FIXME: zwróć odpowiednią wartość
+        return isinstance(other, Product) and self.name == other.name and self.price == other.price
 
     def __hash__(self):
         return hash((self.name, self.price))
 
 
-class TooManyProductsFoundError(Exception):
+class TooManyProductsFoundError:
     # Reprezentuje wyjątek związany ze znalezieniem zbyt dużej liczby produktów.
-    def __init__(self, lst_product, n_max_returned_entries):
-        Exception.__init__(self)
-        self.lst_product = lst_product
-        self.n_max_returned_entries = n_max_returned_entries
+    pass
+
 
 # FIXME: Każada z poniższych klas serwerów powinna posiadać: (1) metodę inicjalizacyjną przyjmującą listę obiektów
 #  typu `Product` i ustawiającą atrybut `products` zgodnie z typem reprezentacji produktów na danym serwerze,
@@ -37,7 +59,7 @@ class Server(ABC):
 
     n_max_returned_entries = 10
     products = None
-    
+
     def get_entries(self, n_letters: int = 1) -> List[Product]:
         products = self.get_all_products(self.products)
         product_list = []
@@ -52,13 +74,14 @@ class Server(ABC):
                     product_list.append(product)
             if len(product_list) > self.n_max_returned_entries:
                 print('too many entries')
-                return 0 
+                return 0
             product_list = sorted(product_list, key=product.price)
         return product_list
 
     @abstractmethod
     def get_all_products(self):
         pass
+
 
 class ListServer(Server):
     def __init__(self, products) -> None:
@@ -68,6 +91,7 @@ class ListServer(Server):
 
     def get_all_products(self):
         return self.products
+
 
 class MapServer(Server):
 
