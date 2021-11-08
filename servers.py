@@ -122,6 +122,9 @@ class Client:
             sum_price = 0
             lst_product = self.server.get_entries(n_letters)
 
+            if not lst_product:
+                return None
+
             for i in range(len(lst_product)):
                 sum_price += lst_product[i].price
 
