@@ -48,7 +48,7 @@ class TooManyProductsFoundError(Exception):
         super().__init__(self)
         self.n_returned_entries = n_returned_entries
         self.n_max_returned_entries = n_max_returned_entries
-        print('number of entries exceeded by:',self.n_returned_entries - self.n_max_returned_entries)
+        print('number of entries exceeded by:', self.n_returned_entries - self.n_max_returned_entries)
 
 
 # FIXME: Każada z poniższych klas serwerów powinna posiadać: (1) metodę inicjalizacyjną przyjmującą listę obiektów
@@ -78,11 +78,11 @@ class Server(ABC):
                     if all(item in digits for item in nums2) or all(item in digits for item in nums3):
                         product_list.append(product)
                 if len(product_list) > self.n_max_returned_entries:
-                    raise TooManyProductsFoundError(len(product_list),self.n_max_returned_entries)
+                    raise TooManyProductsFoundError(len(product_list), self.n_max_returned_entries)
         except TooManyProductsFoundError:
-            print('number of entries exceeded by:',len(product_list) - self.n_max_returned_entries)
+            print('number of entries exceeded by:', len(product_list) - self.n_max_returned_entries)
             return None
-        product_list.sort(key = lambda x : x.price) 
+        product_list.sort(key=lambda x: x.price)
         return product_list
 
     @abstractmethod
@@ -124,7 +124,7 @@ class Client:
     def get_total_price(self, n_letters: Optional[int]) -> Optional[float]:
         try:
             sum_price = 0
-            lst_product = server.get_entries(n_letters)
+            lst_product = self.server.get_entries(n_letters)
 
             for i in range(len(lst_product)):
                 sum_price += lst_product[i].price
