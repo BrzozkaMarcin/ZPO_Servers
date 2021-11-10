@@ -44,10 +44,7 @@ class Product:
 
 class TooManyProductsFoundError(Exception):
     # Reprezentuje wyjątek związany ze znalezieniem zbyt dużej liczby produktów.
-    def __init__(self, n_returned_entries, n_max_returned_entries):
-        super().__init__(self)
-        self.n_returned_entries = n_returned_entries
-        self.n_max_returned_entries = n_max_returned_entries
+    pass
 
 
 # FIXME: Każada z poniższych klas serwerów powinna posiadać: (1) metodę inicjalizacyjną przyjmującą listę obiektów
