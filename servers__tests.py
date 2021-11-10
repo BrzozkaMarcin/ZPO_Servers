@@ -8,6 +8,7 @@ from servers import ListServer, Product, Client, MapServer
 
 server_types = (ListServer, MapServer)
 
+
 class ProductTest(unittest.TestCase):
 
     def test_proper_name(self):
@@ -41,6 +42,15 @@ class ClientTest(unittest.TestCase):
             server = server_type(products)
             client = Client(server)
             self.assertEqual(5, client.get_total_price(2))
+
+    def test_total_price_for_abnormal_execution(self):
+        products = [Product('X123', 3.5), Product('o121', 1), Product('P235', 1.5), Product('w131', 1),
+                    Product('W32', 2), Product('x12', 2)]
+        for server_type in server_types:
+            server = server_type(products)
+            client = Client(server)
+            self.assertEqual(None, client.get_total_price(1))
+            self.assertEqual(None, client.get_total_price(10))
 
 
 if __name__ == '__main__':
