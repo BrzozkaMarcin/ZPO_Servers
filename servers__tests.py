@@ -26,7 +26,6 @@ class ProductTest(unittest.TestCase):
 
 
 class ServerTest(unittest.TestCase):
-
     def test_get_entries_returns_proper_entries(self):
         products = [Product('P12', 1), Product('PP234', 2), Product('PP235', 1)]
         for server_type in server_types:
@@ -34,6 +33,16 @@ class ServerTest(unittest.TestCase):
             entries = server.get_entries(2)
             self.assertEqual(Counter([products[2], products[1]]), Counter(entries))
 
+    def test_sort(self):
+        products = [Product('XD123', 1), Product('ow121', 0.5), Product('PO235', 12), Product('wp131', 6)]
+        for server_type in server_types:
+            server = server_type(products)
+            entries = server.get_entries(2)
+            lst1 = []
+            lst2 = ['ow121', 'XD123', 'wp131', 'PO235']
+            for i in range(len(entries)):
+                lst1.append(entries[i].name)
+            self.assertEqual(lst1, lst2)
 
 class ClientTest(unittest.TestCase):
     def test_total_price_for_normal_execution(self):
