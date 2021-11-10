@@ -48,7 +48,6 @@ class TooManyProductsFoundError(Exception):
         super().__init__(self)
         self.n_returned_entries = n_returned_entries
         self.n_max_returned_entries = n_max_returned_entries
-        print('number of entries exceeded by:', self.n_returned_entries - self.n_max_returned_entries)
 
 
 # FIXME: Każada z poniższych klas serwerów powinna posiadać: (1) metodę inicjalizacyjną przyjmującą listę obiektów
