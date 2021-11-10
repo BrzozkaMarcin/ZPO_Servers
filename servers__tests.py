@@ -28,8 +28,8 @@ class ClientTest(unittest.TestCase):
             self.assertEqual(5, client.get_total_price(2))
 
     def test_total_price_for_abnormal_execution(self):
-        products = [Product('XYZ123', 3.5), Product('oo121', 1), Product('PP235', 1.5), Product('ww131', 1),
-                    Product('WW32', 2), Product('xy12', 2), Product('ww424', 3)]
+        products = [Product('X123', 3.5), Product('o121', 1), Product('P235', 1.5), Product('w131', 1),
+                    Product('W32', 2), Product('x12', 2)]
         for server_type in server_types:
             server = server_type(products)
             client = Client(server)
