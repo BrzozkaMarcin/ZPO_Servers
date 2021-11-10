@@ -61,7 +61,7 @@ class Server(ABC):
     def __init__(self) -> None:
         super().__init__()
 
-    n_max_returned_entries = 5
+    n_max_returned_entries = 10
     products = None
 
     def get_entries(self, n_letters: int = 1) -> List[Product]:
@@ -75,7 +75,8 @@ class Server(ABC):
             nums3 = product.name[n_letters:n_letters + 3]
             if all(item in ascii_letters for item in n_chars):
                 if all(item in digits for item in nums2) or all(item in digits for item in nums3):
-                    product_list.append(product)
+                    if (len(product.name) <= n_letters + 3) and len(product.name) > n_letters + 1:
+                        product_list.append(product)
             if len(product_list) > self.n_max_returned_entries:
                 raise TooManyProductsFoundError(len(product_list), self.n_max_returned_entries)
         product_list.sort(key=lambda x: x.price)
