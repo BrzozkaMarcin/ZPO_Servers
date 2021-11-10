@@ -27,6 +27,15 @@ class ClientTest(unittest.TestCase):
             client = Client(server)
             self.assertEqual(5, client.get_total_price(2))
 
+    def test_total_price_for_abnormal_execution(self):
+        products = [Product('XYZ123', 3.5), Product('oo121', 1), Product('PP235', 1.5), Product('ww131', 1),
+                    Product('WW32', 2), Product('xy12', 2), Product('ww424', 3)]
+        for server_type in server_types:
+            server = server_type(products)
+            client = Client(server)
+            self.assertEqual(None, client.get_total_price(1))
+            self.assertEqual(None, client.get_total_price(10))
+
 
 if __name__ == '__main__':
     unittest.main()
