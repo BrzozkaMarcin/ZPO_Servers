@@ -8,6 +8,21 @@ from servers import ListServer, Product, Client, MapServer
 
 server_types = (ListServer, MapServer)
 
+class ProductTest(unittest.TestCase):
+
+    def test_proper_name(self):
+        with self.assertRaises(ValueError):
+            only_letters = Product('ss', 2.0)
+
+        with self.assertRaises(ValueError):
+            reverse = Product('23ss', 2.0)
+
+        with self.assertRaises(ValueError):
+            mixed = Product("2S3f", 6.4)
+
+        with self.assertRaises(ValueError):
+            only_numbers = Product('23', 2.0)
+
 
 class ServerTest(unittest.TestCase):
 
