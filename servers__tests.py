@@ -4,13 +4,12 @@
 import unittest
 from collections import Counter
 
-from servers import ListServer, Product, Client, MapServer
+from servers import ListServer, Product, Client, MapServer, TooManyProductsFoundError
 
 server_types = (ListServer, MapServer)
 
 
 class ProductTest(unittest.TestCase):
-
     def test_proper_name(self):
         with self.assertRaises(ValueError):
             only_letters = Product('ss', 2.0)
@@ -43,6 +42,14 @@ class ServerTest(unittest.TestCase):
             for i in range(len(entries)):
                 lst1.append(entries[i].name)
             self.assertEqual(lst1, lst2)
+
+    def test_TooManyProductsFoundError(self):
+        products = [Product('X123', 3.5), Product('o121', 1), Product('P235', 1.5), Product('w131', 1),
+                    Product('W32', 2), Product('x12', 2)]
+        for server_type in server_types:
+            server = server_type(products)
+            with self.assertRaises(TooManyProductsFoundError):
+                entries = server.get_entries(1)
 
 
 class ClientTest(unittest.TestCase):
