@@ -61,7 +61,7 @@ class Server(ABC):
     def __init__(self) -> None:
         super().__init__()
 
-    n_max_returned_entries = 10
+    n_max_returned_entries = 5
     products = None
 
     def get_entries(self, n_letters: int = 1) -> List[Product]:

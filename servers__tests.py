@@ -44,6 +44,7 @@ class ServerTest(unittest.TestCase):
                 lst1.append(entries[i].name)
             self.assertEqual(lst1, lst2)
 
+
 class ClientTest(unittest.TestCase):
     def test_total_price_for_normal_execution(self):
         products = [Product('PP234', 2), Product('PP235', 3)]
