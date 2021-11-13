@@ -3,7 +3,7 @@
 
 # Marcin Brzózka, nr 405499
 # Stanisław Dudiak, nr
-# Adam Pękala, nr
+# Adam Pękala, nr 405380
 
 import unittest
 from collections import Counter
