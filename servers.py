@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Marcin Brzózka, nr 405499
-# Stanisław Dudiak, nr
+# Stanisław Dudiak, nr406903
 # Adam Pękala, nr 405380
 
 # from _typeshed import Self
