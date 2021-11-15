@@ -12,7 +12,7 @@ from servers import ListServer, Product, Client, MapServer, TooManyProductsFound
 
 server_types = (ListServer, MapServer)
 
-
+# Test dodatkowy sprawdzający rzucanie wyjątku ValueError dla produktu
 class ProductTest(unittest.TestCase):
     def test_proper_name(self):
         # only_letters
@@ -41,7 +41,7 @@ class ServerTest(unittest.TestCase):
             self.assertEqual(Counter([products[2], products[1]]), Counter(entries))
 
     def test_sort(self):
-        products = [Product('XD123', 1), Product('ow121', 0.5), Product('PO235', 12), Product('wp131', 6)]
+        products = [Product('XD123', 1), Product('ow121', 0.5), Product('PO235', 12), Product('wp131', 6), Product('w131', 99)]
         for server_type in server_types:
             server = server_type(products)
             entries = server.get_entries(2)

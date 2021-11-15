@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Marcin Brzózka, nr 405499
-# Stanisław Dudiak, nr406903
+# Stanisław Dudiak, nr 406903
 # Adam Pękala, nr 405380
 
 # from _typeshed import Self
@@ -60,7 +60,7 @@ class Server(ABC):
     def __init__(self) -> None:
         super().__init__()
 
-    n_max_returned_entries = 2
+    n_max_returned_entries = 5
     products = None
 
     def get_entries(self, n_letters: int = 1) -> List[Product]:
