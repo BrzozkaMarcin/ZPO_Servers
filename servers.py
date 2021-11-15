@@ -1,6 +1,10 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+# Marcin Brzózka, nr 405499
+# Stanisław Dudiak, nr
+# Adam Pękala, nr 405380
+
 # from _typeshed import Self
 from typing import List, Optional
 from abc import ABC, abstractmethod

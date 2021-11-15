@@ -1,6 +1,10 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+# Marcin Brzózka, nr 405499
+# Stanisław Dudiak, nr
+# Adam Pękala, nr 405380
+
 import unittest
 from collections import Counter
 
@@ -11,17 +15,21 @@ server_types = (ListServer, MapServer)
 
 class ProductTest(unittest.TestCase):
     def test_proper_name(self):
+        # only_letters
         with self.assertRaises(ValueError):
-            only_letters = Product('ss', 2.0)
+            Product('ss', 2.0)
 
+        # reverse
         with self.assertRaises(ValueError):
-            reverse = Product('23ss', 2.0)
+            Product('23ss', 2.0)
 
+        # mixed
         with self.assertRaises(ValueError):
-            mixed = Product("2S3f", 6.4)
+            Product("2S3f", 6.4)
 
+        # only_numbers
         with self.assertRaises(ValueError):
-            only_numbers = Product('23', 2.0)
+            Product('23', 2.0)
 
 
 class ServerTest(unittest.TestCase):
@@ -49,7 +57,7 @@ class ServerTest(unittest.TestCase):
         for server_type in server_types:
             server = server_type(products)
             with self.assertRaises(TooManyProductsFoundError):
-                entries = server.get_entries(1)
+                server.get_entries(1)
 
 
 class ClientTest(unittest.TestCase):
